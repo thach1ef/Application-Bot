@@ -7,7 +7,7 @@ class Bot extends Discord.Client {
     
         this.loadConfig();
         this.registerEvents();
-        this.run();        
+        this.run();                
     }
 
     loadConfig() {
