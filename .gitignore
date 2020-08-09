@@ -1,0 +1,13 @@
+# ignore config
+config.js
+
+# ignore bot auth link
+link.txt
+
+# ignore all txt files
+*.txt
+
+# ignore start.bat
+start.bat
+
+

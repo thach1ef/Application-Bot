@@ -1,0 +1,15 @@
+{
+  "name": "Application-Bot",
+  "version": "3.5.0",
+  "description": "Bot to process and handle incoming applications",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "node app.js debug"
+  },
+  "author": "/Kammi",
+  "license": "GPL-3.0",
+  "dependencies": {
+    "discord.js": "^11.4.2"
+  }
+}

@@ -1,0 +1,52 @@
+// This is an example of the configuration file you need to setup and use. Please note you need to rename this file to 
+// config.js after making the appropriate edits to the below. Many fields have been left as defaults, the rest should
+// all have explanations of what is needed in the readme file.
+
+const config = {
+    // Bot Owner, level 10 by default. A User ID. Should never be anything else than the bot owner's ID.
+    "ownerID": "NNNNNNNNNNNNNNNNNN",
+  
+    // Bot Token
+    "token": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",   
+    // Prefix for bot commands
+    "prefix": "&",
+  
+    // Application Channel Settings    
+    "trigger": "NNNNNNNNNNNNNNNNNN",	
+    "webhook_id": "NNNNNNNNNNNNNNNNNN",
+    
+    // Google Form Settings
+    "discord_tag": "Discord Tag",
+    "character_server_name": "Character & Realm",    
+    "battle_tag": "BattleTag",
+
+    // Internal Category/Channel Settings    
+    "internal" : {
+        "category": "NNNNNNNNNNNNNNNNNN",
+        "channel_prefix": "",
+        // base ranks to give internal persmissions to
+        "ranks": ["Officer","Elite","Veteran","Senior","Raider"],
+        // gives bots higher permissions than the above
+        "bots": ["Bots"]
+    },
+
+    // Open/Applicant Category/Channel Settings   
+    "open" : {
+        "channel": "TRUE",
+        "category": "NNNNNNNNNNNNNNNNNN",
+        "channel_prefix": "",    
+        // base ranks to give internal persmissions to
+        "ranks": ["Officer"],
+        // gives bots higher permissions than the above
+        "bots": ["Bots"]
+    },   
+
+    "language": {
+        "create_channel": {
+            "reason": "New Application",
+            "topic": "New Application by %user%"
+        }
+    }          
+  };
+  
+  module.exports = config;
