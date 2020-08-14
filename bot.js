@@ -41,7 +41,8 @@ class Bot extends Discord.Client {
             } else {                     
                 // once here, it will be a webhook. This if checks for the trigger channel. If not the one assigned, it will return the below error and exit.
                 if(channel.id !== this.config.trigger) {
-                    console.log("This is not a proper config trigger channel " + message + " channel: " + channel + " embedmessage: " + message.embed);
+                    fs.appendFileSync('./errorlog.txt', 'This is not a proper config trigger channel ' + message + ' channel: ' + channel + ' embedmessage: ' + message.embed + '\n');
+                    console.log('This is not a proper config trigger channel ' + message + ' channel: ' + channel + ' embedmessage: ' + message.embed);
 
                     return;            
                 } else {                    
@@ -53,10 +54,14 @@ class Bot extends Discord.Client {
         // Gets current date and time
         var date = new Date();
      
-        // try this if above doesnt work
-        // below gives the integer, not the time
-        //this.on("error", (e) => console.error(Date.now() + ' ErrorA: ', e.message));         
-        this.on("error", (e) => console.error(date + ' ErrorA: ', e.message));         
+        // using both errors for time being
+        // trying this to print to error log instead of console
+        //this.on("error", (e) => fs.appendFileSync('./errorlog.txt', date + 'ErrorA: ', e.message));
+        //this.on("error", (e) => console.error(date + ' ErrorA: ', e.message));
+        this.on("error", (e) => {
+            fs.appendFileSync('./errorlog.txt', date + 'ErrorA: ', e.message);
+            console.error(date + ' ErrorA: ', e.message);
+        });
     }
 
     run() {
@@ -70,6 +75,7 @@ process.on('unhandledRejection', (reason, promise) => {
     // Gets current date and time
     var date = new Date();    
     
+    fs.appendFileSync('./errorlog.txt', date + ' Unhandled Rejection at:', promise, 'reason', reason);
     console.error(date + ' Unhandled Rejection at:', promise, 'reason', reason);
 });
 

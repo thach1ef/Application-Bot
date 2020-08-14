@@ -50,7 +50,8 @@ async function run(bot, message) {
 
       // Gets current date and time
       var date = Date();      
-       
+      
+      fs.appendFileSync('./errorlog.txt', 'Invalid Discord user tag, ' + userTag + ', for applicant ' + characterServerName + ' at ' + date + '\n');
       console.error('Invalid Discord user tag, ' + userTag + ', for applicant ' + characterServerName + ' at ' + date);        
 
     } else {      
@@ -67,6 +68,7 @@ async function run(bot, message) {
     // Checks to make sure internal category is set properly
     let internal_category = guild.channels.get(bot.config.internal.category);
     if(!internal_category || !internal_category.type === 'category') {
+        fs.appendFileSync('./errorlog.txt', 'Internal category is not a valid category.');
         console.error('Internal category is not a valid category.');
         return;
     }    
@@ -74,6 +76,7 @@ async function run(bot, message) {
     // Checks to make sure open category is set properly
     let open_category = guild.channels.get(bot.config.open.category);
     if(!open_category || !open_category.type === 'category') {
+        fs.appendFileSync('./errorlog.txt', 'Open category is not a valid category.');
         console.error('Open category is not a valid category.');
         return;
     } 
@@ -156,6 +159,7 @@ async function run(bot, message) {
 
       // Sets the parent category if there is one set in config
       if(!open_category || !open_category.type === 'category') {
+        fs.appendFileSync('./errorlog.txt', 'Open category is not set in config. Placing Open applications in base discord channel.');
         console.error('Open category is not set in config. Placing Open applications in base discord channel.');        
       } else {
         openAppChannel.setParent(open_category);      
@@ -167,14 +171,12 @@ async function run(bot, message) {
       // Copies the embed and sends to open app channel
       const openEmbed = await openAppChannel.send(new RichEmbed(message.embeds[0]));    
       
-      // Prints to console when app is successful
-      //console.error('Applcation submitted for: ' + userTag + ' / ' + characterServerName + ' at ' + date);    
-
       // Gets current date and time
       var date = Date();
 
       fs.appendFileSync('./log.txt', 'Applcation submitted for: ' + userTag + ' / ' + characterServerName + ' at ' + date + '\n', function (err) {      
         if (err) {
+          fs.appendFileSync('./errorlog.txt', err + ' at ' + date + '\n');
           return console.log(err);
         }
       });          
