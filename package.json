@@ -1,11 +1,11 @@
 {
   "name": "Application-Bot",
-  "version": "3.5.0",
+  "version": "3.6.0",
   "description": "Bot to process and handle incoming applications",
-  "main": "app.js",
+  "main": "main.js",
   "scripts": {
-    "start": "node app.js",
-    "test": "node app.js debug"
+    "start": "node main.js",
+    "test": "node main.js debug"
   },
   "author": "/Kammi",
   "license": "GPL-3.0",

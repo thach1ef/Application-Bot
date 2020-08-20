@@ -1,25 +1,11 @@
 const Discord = require('discord.js');
 const { RichEmbed } = require('discord.js');
 const fs = require('fs');
-
-// use this to log to text file when ready
-// fs.writeFileSync('./log.txt', "");
-// fs.appendFile('.log.txt', '')
-
-// writes embed to file for debugging purposes
-//fs.writeFileSync('./local_file_embed.json', require('util').inspect(message.embeds[0].fields));        
+const config = require('../config.js');
 
 async function run(bot, message) {    
     let author = message.author;
     let guild = message.guild;
-
-    /*
-    let channel = message.channel;
-    if(channel.id !== bot.config.trigger) {
-        console.log("not proper watcher");
-        return;
-    }
-    */
 
     // EXTRACT DATA
 
@@ -27,15 +13,15 @@ async function run(bot, message) {
     var i;
     var fieldsLength = message.embeds[0].fields.length;
     for (i = 0; i < fieldsLength; i++) {      
-      if (message.embeds[0].fields[i].name == bot.config.character_server_name) {                
+      if (message.embeds[0].fields[i].name == config.character_server_name) {                
         // Gets the character and realm from the embed message the bot sends
         characterServerName = message.embeds[0].fields[i].value;            
       }
-      if (message.embeds[0].fields[i].name == bot.config.discord_tag) {        
+      if (message.embeds[0].fields[i].name == config.discord_tag) {        
         // Gets the discord tag of the applicant and finds the user ID
         userTag = message.embeds[0].fields[i].value;
       }
-      if (message.embeds[0].fields[i].name == bot.config.battle_tag) {        
+      if (message.embeds[0].fields[i].name == config.battle_tag) {        
         // Gets the discord tag of the applicant and finds the user ID
         battleTag = message.embeds[0].fields[i].value;
       }      
@@ -46,13 +32,11 @@ async function run(bot, message) {
 
     // If they gave wrong discord tag, this will send the error message in the console
     if(!userID) {      
-      //fs.appendFileSync('./log.txt', 'Invalid Discord user tag, ' + userTag + ', for applicant ' + characterServerName + ' at ' + date + '\n', function (err) {                      
-
       // Gets current date and time
       var date = Date();      
       
       fs.appendFileSync('./errorlog.txt', 'Invalid Discord user tag, ' + userTag + ', for applicant ' + characterServerName + ' at ' + date + '\n');
-      console.error('Invalid Discord user tag, ' + userTag + ', for applicant ' + characterServerName + ' at ' + date);        
+      console.error(date + ' : Invalid Discord user tag, ' + userTag + ', for applicant ' + characterServerName);        
 
     } else {      
       userID = userID.id; 
@@ -61,12 +45,12 @@ async function run(bot, message) {
     // CHANNEL WORK
 
     // Sets and checks to make sure the default application channel is up and running
-    let applicationChannel = guild.channels.some(appChannel => appChannel.name === (bot.config.open.channel_prefix + author.username).toLowerCase());
+    let applicationChannel = guild.channels.some(appChannel => appChannel.name === (config.open.channel_prefix + author.username).toLowerCase());
     if(applicationChannel)
         return;
 
     // Checks to make sure internal category is set properly
-    let internal_category = guild.channels.get(bot.config.internal.category);
+    let internal_category = guild.channels.get(config.internal.category);
     if(!internal_category || !internal_category.type === 'category') {
         fs.appendFileSync('./errorlog.txt', 'Internal category is not a valid category.');
         console.error('Internal category is not a valid category.');
@@ -74,7 +58,7 @@ async function run(bot, message) {
     }    
 
     // Checks to make sure open category is set properly
-    let open_category = guild.channels.get(bot.config.open.category);
+    let open_category = guild.channels.get(config.open.category);
     if(!open_category || !open_category.type === 'category') {
         fs.appendFileSync('./errorlog.txt', 'Open category is not a valid category.');
         console.error('Open category is not a valid category.');
@@ -86,26 +70,26 @@ async function run(bot, message) {
     // Sets roles from config for rank setup
     // Internal ranks
     var iranks = [];
-    for (var i = 0; i < bot.config.internal.ranks.length; i++) {      
-      iranks.push(message.guild.roles.find(role => role.name === bot.config.internal.ranks[i]));
+    for (var i = 0; i < config.internal.ranks.length; i++) {      
+      iranks.push(message.guild.roles.find(role => role.name === config.internal.ranks[i]));
     }
     
     // Internal bot ranks
     var iranksbots = [];
-    for (var i = 0; i < bot.config.internal.bots.length; i++) {      
-      iranksbots.push(message.guild.roles.find(role => role.name === bot.config.internal.bots[i]));
+    for (var i = 0; i < config.internal.bots.length; i++) {      
+      iranksbots.push(message.guild.roles.find(role => role.name === config.internal.bots[i]));
     }
 
     // Open ranks
     var oranks = [];
-    for (var i = 0; i < bot.config.open.ranks.length; i++) {      
-      oranks.push(message.guild.roles.find(role => role.name === bot.config.open.ranks[i]));
+    for (var i = 0; i < config.open.ranks.length; i++) {      
+      oranks.push(message.guild.roles.find(role => role.name === config.open.ranks[i]));
     }
 
     // Open bot ranks
     var oranksbots = [];
-    for (var i = 0; i < bot.config.open.bots.length; i++) {      
-      oranksbots.push(message.guild.roles.find(role => role.name === bot.config.open.bots[i]));
+    for (var i = 0; i < config.open.bots.length; i++) {      
+      oranksbots.push(message.guild.roles.find(role => role.name === config.open.bots[i]));
     }    
     
     // Creates overwrites array for open channel creation
@@ -125,11 +109,11 @@ async function run(bot, message) {
       allow: ['SEND_MESSAGES','VIEW_CHANNEL']
     }]
 
-    // bot.config.open.CHANNEL = TRUE
+    // config.open.CHANNEL = TRUE
 
-    // If bot.config.open.channel is set to TRUE in the config file, then this part will be run.
+    // If config.open.channel is set to TRUE in the config file, then this part will be run.
     // Sets conditonal permissions based on proper discord ID and user setings in config.
-    if (bot.config.open.channel == "TRUE") {
+    if (config.open.channel == "TRUE") {
       // Conditonal based on if the user inputted a proper discord ID
       if(userID) {
         open_overwrites.push({        
@@ -155,18 +139,18 @@ async function run(bot, message) {
       }
 
       // Creates the open channel
-      let openAppChannel = await guild.createChannel(bot.config.open.channel_prefix + characterServerName, 'text', open_overwrites);        
+      let openAppChannel = await guild.createChannel(config.open.channel_prefix + characterServerName, 'text', open_overwrites);        
 
       // Sets the parent category if there is one set in config
       if(!open_category || !open_category.type === 'category') {
-        fs.appendFileSync('./errorlog.txt', 'Open category is not set in config. Placing Open applications in base discord channel.');
+        fs.appendFileSync('./errorlog.txt', 'Open category is not set in config. Placing Open applications in base discord channel.' + '\n');
         console.error('Open category is not set in config. Placing Open applications in base discord channel.');        
       } else {
         openAppChannel.setParent(open_category);      
       }      
 
       // Sets the topic for the open channel
-      openAppChannel.setTopic(bot.config.language.create_channel.topic.replace('%user%', characterServerName));       
+      openAppChannel.setTopic(config.language.create_channel.topic.replace('%user%', characterServerName));       
 
       // Copies the embed and sends to open app channel
       const openEmbed = await openAppChannel.send(new RichEmbed(message.embeds[0]));    
@@ -232,11 +216,11 @@ async function run(bot, message) {
     // INTERNAL CHANNEL
 
     // Creates the internal channel    
-    let internalAppChannel = await guild.createChannel(bot.config.internal.channel_prefix + characterServerName, 'text', internal_overwrites); 
+    let internalAppChannel = await guild.createChannel(config.internal.channel_prefix + characterServerName, 'text', internal_overwrites); 
 
     // Sets the parent category and sets topic
     internalAppChannel.setParent(internal_category);    
-    internalAppChannel.setTopic(bot.config.language.create_channel.topic.replace('%user%', characterServerName));
+    internalAppChannel.setTopic(config.language.create_channel.topic.replace('%user%', characterServerName));
 
     // MESSAGE SEND AND CLEAN UP
 
