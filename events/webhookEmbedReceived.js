@@ -35,8 +35,8 @@ async function run(bot, message) {
       // Gets current date and time
       var date = Date();      
       
-      fs.appendFileSync('./errorlog.txt', 'Invalid Discord user tag, ' + userTag + ', for applicant ' + characterServerName + ' at ' + date + '\n');
-      console.error(date + ' : Invalid Discord user tag, ' + userTag + ', for applicant ' + characterServerName);        
+      fs.appendFileSync('./log.txt', 'Invalid Discord user tag, ' + userTag + ', for applicant ' + characterServerName + ' at ' + date + '\n');
+      //console.error(date + ' : Invalid Discord user tag, ' + userTag + ', for applicant ' + characterServerName);        
 
     } else {      
       userID = userID.id; 
