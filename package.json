@@ -1,6 +1,6 @@
 {
   "name": "Application-Bot",
-  "version": "3.6.0",
+  "version": "4.0.0",
   "description": "Bot to process and handle incoming applications",
   "main": "main.js",
   "scripts": {
@@ -10,6 +10,6 @@
   "author": "/Kammi",
   "license": "GPL-3.0",
   "dependencies": {
-    "discord.js": "^11.4.2"
+    "discord.js": "^12.3.1"
   }
 }

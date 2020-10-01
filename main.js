@@ -41,21 +41,14 @@ client.on('message', message => {
     }            
 });
 
-// using both errors for time being
-// trying this to print to error log instead of console
-//this.on("error", (e) => fs.appendFileSync('./errorlog.txt', date + 'ErrorA: ', e.message));
-//this.on("error", (e) => console.error(date + ' ErrorA: ', e.message));
 client.on("error", (e) => {
     var date = new Date();
     fs.appendFileSync('./errorlog.txt', date + 'ErrorA: ' + e.message + '\n');
-    //console.error(date + ' ErrorA: ', e.message);
 });
 
-//process.on('unhandledRejection', console.error);
 process.on('unhandledRejection', (reason, promise) => {    
     var date = new Date();        
     fs.appendFileSync('./errorlog.txt', date + ' Unhandled Rejection at:' + promise + 'reason' + reason + '\n');
-    //console.error(date + ' Unhandled Rejection at:', promise, 'reason', reason);
 });
 
 client.login(config.token);    
