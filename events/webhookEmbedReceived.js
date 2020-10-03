@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-const { RichEmbed } = require('discord.js');
+//const { RichEmbed } = require('discord.js');
 const fs = require('fs');
 const config = require('../config.js');
 
@@ -28,15 +28,14 @@ async function run(bot, message) {
     }        
       
     // Takes userID and gets the internal userTag number
-    let userID = bot.users.find(user => user.tag === userTag);    
+    let userID = bot.users.cache.find(user => user.tag === userTag);    
 
     // If they gave wrong discord tag, this will send the error message in the console
     if(!userID) {      
       // Gets current date and time
       var date = Date();      
       
-      fs.appendFileSync('./log.txt', 'Invalid Discord user tag, ' + userTag + ', for applicant ' + characterServerName + ' at ' + date + '\n');
-      //console.error(date + ' : Invalid Discord user tag, ' + userTag + ', for applicant ' + characterServerName);        
+      fs.appendFileSync('./log.txt', 'Invalid Discord user tag, ' + userTag + ', for applicant ' + characterServerName + ' at ' + date + '\n');      
 
     } else {      
       userID = userID.id; 
@@ -44,13 +43,17 @@ async function run(bot, message) {
 
     // CHANNEL WORK
 
-    // Sets and checks to make sure the default application channel is up and running
-    let applicationChannel = guild.channels.some(appChannel => appChannel.name === (config.open.channel_prefix + author.username).toLowerCase());
+    // ***** No idea what this is for. Maybe checking to see if the application already posted so it doesnt duplicate? I dont think this is actually functional. *****
+    // *** removed because i dont think this is used anymore ***
+    // Sets and checks to make sure the default application channel is up and running    
+    /*
+    let applicationChannel = guild.channels.cache.some(appChannel => appChannel.name === (config.open.channel_prefix + author.username).toLowerCase());
     if(applicationChannel)
         return;
+    */    
 
     // Checks to make sure internal category is set properly
-    let internal_category = guild.channels.get(config.internal.category);
+    let internal_category = guild.channels.cache.get(config.internal.category);
     if(!internal_category || !internal_category.type === 'category') {
         fs.appendFileSync('./errorlog.txt', 'Internal category is not a valid category.');
         console.error('Internal category is not a valid category.');
@@ -58,38 +61,46 @@ async function run(bot, message) {
     }    
 
     // Checks to make sure open category is set properly
-    let open_category = guild.channels.get(config.open.category);
+    let open_category = guild.channels.cache.get(config.open.category);
+    /*
     if(!open_category || !open_category.type === 'category') {
         fs.appendFileSync('./errorlog.txt', 'Open category is not a valid category.');
         console.error('Open category is not a valid category.');
         return;
     } 
+    */
 
+    // Sets the parent category if there is one set in config
+    if(!open_category || !open_category.type === 'category') {
+      fs.appendFileSync('./errorlog.txt', 'Open category is invalid or not set in config. Placing Open applications in base discord channel.' + '\n');
+      console.error('Open category is invalid or not set in config. Placing Open applications in base discord channel.');         
+    }
+      
     // PERMISSIONS
     
     // Sets roles from config for rank setup
     // Internal ranks
     var iranks = [];
     for (var i = 0; i < config.internal.ranks.length; i++) {      
-      iranks.push(message.guild.roles.find(role => role.name === config.internal.ranks[i]));
+      iranks.push(message.guild.roles.cache.find(role => role.name === config.internal.ranks[i]));
     }
     
     // Internal bot ranks
     var iranksbots = [];
     for (var i = 0; i < config.internal.bots.length; i++) {      
-      iranksbots.push(message.guild.roles.find(role => role.name === config.internal.bots[i]));
+      iranksbots.push(message.guild.roles.cache.find(role => role.name === config.internal.bots[i]));
     }
 
     // Open ranks
     var oranks = [];
     for (var i = 0; i < config.open.ranks.length; i++) {      
-      oranks.push(message.guild.roles.find(role => role.name === config.open.ranks[i]));
+      oranks.push(message.guild.roles.cache.find(role => role.name === config.open.ranks[i]));
     }
 
     // Open bot ranks
     var oranksbots = [];
     for (var i = 0; i < config.open.bots.length; i++) {      
-      oranksbots.push(message.guild.roles.find(role => role.name === config.open.bots[i]));
+      oranksbots.push(message.guild.roles.cache.find(role => role.name === config.open.bots[i]));
     }    
     
     // Creates overwrites array for open channel creation
@@ -135,25 +146,38 @@ async function run(bot, message) {
         open_overwrites.push({
           id : oranksbots[i],
           allow: ['SEND_MESSAGES','VIEW_CHANNEL','MANAGE_MESSAGES']
-        });
-      }
+        })
+      }      
 
       // Creates the open channel
-      let openAppChannel = await guild.createChannel(config.open.channel_prefix + characterServerName, 'text', open_overwrites);        
+      //let openAppChannel = await guild.createChannel(config.open.channel_prefix + characterServerName, 'text', open_overwrites);        
+      // v12 
+      //let openAppChannel = await guild.channels.create(config.open.channel_prefix + characterServerName, {type: 'text', permissionOverwrites: open_overwrites});
+      // v12 v2
+      let openAppChannel = await guild.channels.create(config.open.channel_prefix + characterServerName, {
+        type: 'text', 
+        permissionOverwrites: open_overwrites,
+        parent: open_category,
+        topic: config.language.create_channel.topic.replace('%user%', characterServerName)
+      })
 
+      /*
       // Sets the parent category if there is one set in config
       if(!open_category || !open_category.type === 'category') {
         fs.appendFileSync('./errorlog.txt', 'Open category is not set in config. Placing Open applications in base discord channel.' + '\n');
         console.error('Open category is not set in config. Placing Open applications in base discord channel.');        
       } else {
         openAppChannel.setParent(open_category);      
-      }      
+      } 
 
       // Sets the topic for the open channel
       openAppChannel.setTopic(config.language.create_channel.topic.replace('%user%', characterServerName));       
 
+      */
+
       // Copies the embed and sends to open app channel
-      const openEmbed = await openAppChannel.send(new RichEmbed(message.embeds[0]));    
+      //const openEmbed = await openAppChannel.send(new RichEmbed(message.embeds[0]));    
+      const openEmbed = await openAppChannel.send(new Discord.MessageEmbed(message.embeds[0]));    
       
       // Gets current date and time
       var date = Date();
@@ -163,8 +187,8 @@ async function run(bot, message) {
           fs.appendFileSync('./errorlog.txt', err + ' at ' + date + '\n');
           return console.log(err);
         }
-      });          
-        
+      })         
+      
       // Prints error to their specific channel if they used incorrect discord tag
       if(!userID) {    
         // :x:   
@@ -195,41 +219,51 @@ async function run(bot, message) {
       allow: ['SEND_MESSAGES','VIEW_CHANNEL']
     }]
 
-
     // Loops through internal rank array and sets permissions.
     for (var i = 0; i < iranks.length; i++) {
       internal_overwrites.push({
         id : iranks[i],
         allow: ['SEND_MESSAGES','VIEW_CHANNEL']
       });
-    }
+    };
 
     // Loops through internal bot ranks array and sets permissions.
     for (var i = 0; i < iranksbots.length; i++) {
       internal_overwrites.push({
         id : iranksbots[i],
         allow: ['SEND_MESSAGES','VIEW_CHANNEL','MANAGE_MESSAGES']
-      });
+      })
     }
 
 
     // INTERNAL CHANNEL
 
     // Creates the internal channel    
-    let internalAppChannel = await guild.createChannel(config.internal.channel_prefix + characterServerName, 'text', internal_overwrites); 
+    // v11
+    //let internalAppChannel = await guild.createChannel(config.internal.channel_prefix + characterServerName, 'text', internal_overwrites);     
+    // v12
+    let internalAppChannel = await guild.channels.create(config.internal.channel_prefix + characterServerName, {
+      type: 'text', 
+      permissionOverwrites: internal_overwrites,
+      parent: internal_category,
+      topic: config.language.create_channel.topic.replace('%user%', characterServerName)
+    })
 
+    // v11 
     // Sets the parent category and sets topic
-    internalAppChannel.setParent(internal_category);    
-    internalAppChannel.setTopic(config.language.create_channel.topic.replace('%user%', characterServerName));
+    //internalAppChannel.setParent(internal_category);    
+    //internalAppChannel.setTopic(config.language.create_channel.topic.replace('%user%', characterServerName));
 
     // MESSAGE SEND AND CLEAN UP
 
     // Copies embed and sends to internal app channel    
-    internalAppChannel.send(new RichEmbed(message.embeds[0]));          
+    //internalAppChannel.send(new RichEmbed(message.embeds[0]));          
+    internalAppChannel.send(new Discord.MessageEmbed(message.embeds[0]));          
     
     // Deletes message from original applications category
     // 1000 = 1 sec
-    message.delete(5000);
+    //message.delete(5000);
+    message.delete({ timeout: 5000});
 }
 
 module.exports = run;
