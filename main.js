@@ -43,12 +43,11 @@ client.on('message', message => {
 
 client.on("error", (e) => {
     var date = new Date();
-    fs.appendFileSync('./errorlog.txt', date + 'ErrorA: ' + e.message + '\n');
+    fs.appendFileSync('./errorlog.txt', date + 'ErrorA: ' + e.message + '\n');    
     
     if (config.testing === "true") {
         console.error(date + ' ErrorA: ', e.message);
-    }
-    
+    }    
 });
 
 process.on('unhandledRejection', (reason, promise) => {    
@@ -57,8 +56,7 @@ process.on('unhandledRejection', (reason, promise) => {
 
     if (config.testing === "true") {
         console.error(date + ' Unhandled Rejection at:', promise, 'reason', reason);
-    }
-    
+    }    
 });
 
 client.login(config.token);    

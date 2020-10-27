@@ -33,10 +33,8 @@ async function run(bot, message) {
     // If they gave wrong discord tag, this will send the error message in the console
     if(!userID) {      
       // Gets current date and time
-      var date = Date();      
-      
+      var date = Date();            
       fs.appendFileSync('./log.txt', 'Invalid Discord user tag, ' + userTag + ', for applicant ' + characterServerName + ' at ' + date + '\n');      
-
     } else {      
       userID = userID.id; 
     }
@@ -150,10 +148,6 @@ async function run(bot, message) {
       }      
 
       // Creates the open channel
-      //let openAppChannel = await guild.createChannel(config.open.channel_prefix + characterServerName, 'text', open_overwrites);        
-      // v12 
-      //let openAppChannel = await guild.channels.create(config.open.channel_prefix + characterServerName, {type: 'text', permissionOverwrites: open_overwrites});
-      // v12 v2
       let openAppChannel = await guild.channels.create(config.open.channel_prefix + characterServerName, {
         type: 'text', 
         permissionOverwrites: open_overwrites,
@@ -161,22 +155,7 @@ async function run(bot, message) {
         topic: config.language.create_channel.topic.replace('%user%', characterServerName)
       })
 
-      /*
-      // Sets the parent category if there is one set in config
-      if(!open_category || !open_category.type === 'category') {
-        fs.appendFileSync('./errorlog.txt', 'Open category is not set in config. Placing Open applications in base discord channel.' + '\n');
-        console.error('Open category is not set in config. Placing Open applications in base discord channel.');        
-      } else {
-        openAppChannel.setParent(open_category);      
-      } 
-
-      // Sets the topic for the open channel
-      openAppChannel.setTopic(config.language.create_channel.topic.replace('%user%', characterServerName));       
-
-      */
-
-      // Copies the embed and sends to open app channel
-      //const openEmbed = await openAppChannel.send(new RichEmbed(message.embeds[0]));    
+      // Copies the embed and sends to open app channel 
       const openEmbed = await openAppChannel.send(new Discord.MessageEmbed(message.embeds[0]));    
       
       // Gets current date and time
@@ -239,9 +218,6 @@ async function run(bot, message) {
     // INTERNAL CHANNEL
 
     // Creates the internal channel    
-    // v11
-    //let internalAppChannel = await guild.createChannel(config.internal.channel_prefix + characterServerName, 'text', internal_overwrites);     
-    // v12
     let internalAppChannel = await guild.channels.create(config.internal.channel_prefix + characterServerName, {
       type: 'text', 
       permissionOverwrites: internal_overwrites,
@@ -249,20 +225,13 @@ async function run(bot, message) {
       topic: config.language.create_channel.topic.replace('%user%', characterServerName)
     })
 
-    // v11 
-    // Sets the parent category and sets topic
-    //internalAppChannel.setParent(internal_category);    
-    //internalAppChannel.setTopic(config.language.create_channel.topic.replace('%user%', characterServerName));
-
     // MESSAGE SEND AND CLEAN UP
 
     // Copies embed and sends to internal app channel    
-    //internalAppChannel.send(new RichEmbed(message.embeds[0]));          
     internalAppChannel.send(new Discord.MessageEmbed(message.embeds[0]));          
     
     // Deletes message from original applications category
     // 1000 = 1 sec
-    //message.delete(5000);
     message.delete({ timeout: 5000});
 }
 
