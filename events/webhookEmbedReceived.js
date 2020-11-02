@@ -41,15 +41,6 @@ async function run(bot, message) {
 
     // CHANNEL WORK
 
-    // ***** No idea what this is for. Maybe checking to see if the application already posted so it doesnt duplicate? I dont think this is actually functional. *****
-    // *** removed because i dont think this is used anymore ***
-    // Sets and checks to make sure the default application channel is up and running    
-    /*
-    let applicationChannel = guild.channels.cache.some(appChannel => appChannel.name === (config.open.channel_prefix + author.username).toLowerCase());
-    if(applicationChannel)
-        return;
-    */    
-
     // Checks to make sure internal category is set properly
     let internal_category = guild.channels.cache.get(config.internal.category);
     if(!internal_category || !internal_category.type === 'category') {

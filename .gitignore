@@ -10,4 +10,8 @@ link.txt
 # ignore start.bat
 start.bat
 
+# ignore images folder
+images/
 
+# ignore commands folder
+commands/
