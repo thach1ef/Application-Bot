@@ -10,11 +10,11 @@ When you get to step 2 : Getting your coding environment ready. The space you ar
 
 npm ls discord.js
 
-If it is lower than 11.4.2 then you'll need to update discord.js by typing the following :
+If it is lower than 12.3.1 then you'll need to update discord.js by typing the following :
 
 npm i discord.js
 
-This should get you 11.4.2+. Stop when you get to the part listed "Getting your first bot running"
+This should get you 12.3.1+. Stop when you get to the part listed "Getting your first bot running"
 
 Step 2 : Dev Mode - In Discord make sure you have developer mode enabled. Click the cog next to your name, then appearance and turn on developer mode.
 
@@ -28,7 +28,7 @@ To get the ID of both the category and the trigger channel, you simply right cli
 
 Step 5 : Google form setup - Using this bot with the google for, your first question must be character name. This will allow proper applicant specifc channel creation.
 
-Step 6 : config.json Setup - Open the config.json file to start inputting your server specific settigns.
+Step 6 : config.js Setup - Open the config.js.example file to start inputting your server specific settings. Once you have put in your settings make sure you rename this to just config.js
 
 - ownerID : this is the bot owners ID.
 - token : you got this when setting up your discord bot.
@@ -54,8 +54,6 @@ Open Settings - these are for the open channel that would include the applicant 
 - ranks : same as above, just for this open channel.
 - bots : same as above, just for this open channel.
 
-Note - If you decide that open_channel is something you want to use, you must have Discord ID as your 3rd question (work in progress to do this dynamically so it doesnt have to be a set position). If you do not want to use this feature, then the only thing you need is character name as your first question.
-
 Step 7 : Permissions Setup - This bot will automatically enable permissions to view/comment for specified discord ranks. In my guild I have it setup so anyone with an officer or raider rank may view and comment. You can change this to your own specific needs in the config.json file.
 
 At the server level make sure your bot has the following permissions enabled : manage server, manage roles, manage channels, manage webhooks, read text channels and see voice channels, send messages, manage messages, read message history.
@@ -66,6 +64,6 @@ Lastly, at this time, make sure the bot is only able to access your applications
 
 Step 8 : Starting the bot - If you run start.bat this will run the proper code to get your bot online. You should then see the bot come online in your applications channel if you did the rest of the setup properly.
 
-Note - as this bot is in very limited usage right now you must run this on your own PC/server etc. It is not like many of the mainstream bots out there that are hosted elsewhere.
+Note - as this bot is in very limited usage right now you must run this on your own PC/server etc. It is not like many of the mainstream bots out there that are hosted elsewhere. If the need does arise, I will work on getting that setup as well.
 
 -Kammi
