@@ -67,3 +67,4 @@ Step 8 : Starting the bot - If you run start.bat this will run the proper code t
 Note - as this bot is in very limited usage right now you must run this on your own PC/server etc. It is not like many of the mainstream bots out there that are hosted elsewhere. If the need does arise, I will work on getting that setup as well.
 
 -Kammi
+"# Application-Bot" 
