@@ -54,17 +54,16 @@ Open Settings - these are for the open channel that would include the applicant 
 - ranks : same as above, just for this open channel.
 - bots : same as above, just for this open channel.
 
-Step 7 : Permissions Setup - This bot will automatically enable permissions to view/comment for specified discord ranks. In my guild I have it setup so anyone with an officer or raider rank may view and comment. You can change this to your own specific needs in the config.json file.
+Step 7 : Permissions Setup - This bot will automatically enable permissions to view/comment for specified discord ranks. In my guild I have it setup so anyone with an officer or raider rank may view and comment. You can change this to your own specific needs in the config.js file.
 
 At the server level make sure your bot has the following permissions enabled : manage server, manage roles, manage channels, manage webhooks, read text channels and see voice channels, send messages, manage messages, read message history.
 
 You must also make sure the bot is HIGHER in the list of roles in the channel that you set as your applications trigger channel in step 4. Simply drag the bot in the permissions list above the others.
 
-Lastly, at this time, make sure the bot is only able to access your applications trigger channel It's currently looking for a webhook message and if it is reading other channels it may inadvertently intercept a non application.
+Lastly, at this time, make sure the bot is only able to access your applications trigger channel. It's currently looking for a webhook message and if it is reading other channels it may inadvertently intercept a non application.
 
 Step 8 : Starting the bot - If you run start.bat this will run the proper code to get your bot online. You should then see the bot come online in your applications channel if you did the rest of the setup properly.
 
 Note - as this bot is in very limited usage right now you must run this on your own PC/server etc. It is not like many of the mainstream bots out there that are hosted elsewhere. If the need does arise, I will work on getting that setup as well.
 
 -Kammi
-"# Application-Bot" 
