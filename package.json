@@ -1,6 +1,6 @@
 {
   "name": "Application-Bot",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Bot to process and handle incoming applications along with other features",
   "main": "main.js",
   "scripts": {
