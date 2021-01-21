@@ -1,6 +1,6 @@
 Discord Bot to handle World of Warcraft applications using GF>D (Google Forms to Discord) : https://discord.gg/7PPZg7r
 
-First you must be using the google form to discord integration (GF>D). Which takes applications filled out via a google form and automatically sends them into your discord. This bot will then help you organize and manaage those applications by listening to the trigger channel (main channel your form sends applications to) and when it sees a new app, it will create a brand new channel in the same category which by default would be labeled ApplicantName-ServerName. It will then copy the full application from the main channel into the applicant specific channel. Allowing you to have a applicant specific channel for each app.
+First you must be using the google form to discord integration (GF>D). Which takes applications filled out via a google form and automatically sends them into your discord. This bot will then help you organize and manage those applications by listening to the trigger channel (main channel your form sends applications to) and when it sees a new app, it will create a brand new channel in the same category which by default would be labeled ApplicantName-ServerName. It will then copy the full application from the main channel into the applicant specific channel. Allowing you to have a applicant specific channel for each app.
 
 To setup please follow the instructions below. If you have any questions, please ask in the discord and I'll be happy to help.
 
