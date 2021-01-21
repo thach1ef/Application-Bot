@@ -7,12 +7,5 @@ link.txt
 # ignore all txt files
 *.txt
 
-# ignore start.bat
-start.bat
-
 # ignore node modules
 node_modules/
-
-# ignore broken stuff
-Unused/
-
