@@ -34,7 +34,7 @@ Step 6 : config.js Setup - Open the config.js.example file to start inputting yo
 - token : you got this when setting up your discord bot.
 - prefix : prefix for bot commands. Dont want to duplicate something else already in use by another bot.
 - trigger : channnel ID of where the google form is sending the apps.
-- webhook_id : ID of the webhook. This is different than the Bots ID. You get this by going into your server settings for the webhook and looking at the webhook url.
+- webhook_id : ID of the webhook. This is different than the Bots ID. You get this by going into your server settings for the webhook and looking at the webhook url. You'll need the long number from here only.
 - discord_tag : this is the title of the field on your application where you ask the user for their discord tag. Ex: "Discord Tag" on my guilds application.
 - character_server_name : this is the title of the field on your application where you ask the user for their character name. On my application we ask for character and server in the following format (character-server). Therefore on my application this field is "Character & Realm".
 - battle_tag : this is the title of the field on your application where you ask the user for their battle tag. Ex: "BattleTag" on my guilds application.
