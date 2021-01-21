@@ -62,7 +62,11 @@ You must also make sure the bot is HIGHER in the list of roles in the channel th
 
 Lastly, at this time, make sure the bot is only able to access your applications trigger channel. It's currently looking for a webhook message and if it is reading other channels it may inadvertently intercept a non application.
 
-Step 8 : Starting the bot - If you run start.bat this will run the proper code to get your bot online. You should then see the bot come online in your applications channel if you did the rest of the setup properly.
+Step 8 : Starting the bot - At this time you need to simply go into your bots directory. Open up a powershell prompt to that directory and then type 
+
+node main.js
+
+At that point the bot should start up and youll see a ready message in your console window.
 
 Note - as this bot is in very limited usage right now you must run this on your own PC/server etc. It is not like many of the mainstream bots out there that are hosted elsewhere. If the need does arise, I will work on getting that setup as well.
 
