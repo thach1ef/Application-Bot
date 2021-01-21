@@ -10,8 +10,11 @@ const config = {
     "token": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",   
     // Prefix for bot commands
     "prefix": "&",
+    // Mongo
+    "mongoPath": "",
   
     // Application Channel Settings    
+    "listener": "NNNNNNNNNNNNNNNNNN",	 
     "trigger": "NNNNNNNNNNNNNNNNNN",	
     "webhook_id": "NNNNNNNNNNNNNNNNNN",
     

@@ -10,8 +10,9 @@ link.txt
 # ignore start.bat
 start.bat
 
-# ignore images folder
-images/
+# ignore node modules
+node_modules/
 
-# ignore commands folder
-commands/
+# ignore broken stuff
+Unused/
+

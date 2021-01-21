@@ -1,7 +1,7 @@
 {
   "name": "Application-Bot",
-  "version": "4.0.0",
-  "description": "Bot to process and handle incoming applications",
+  "version": "2.0.0",
+  "description": "Bot to process and handle incoming applications along with other features",
   "main": "main.js",
   "scripts": {
     "start": "node main.js",
@@ -10,6 +10,23 @@
   "author": "/Kammi",
   "license": "GPL-3.0",
   "dependencies": {
-    "discord.js": "^12.3.1"
+    "axios": "^0.21.0",
+    "chart.js": "^2.9.4",
+    "chartjs-node-canvas": "^3.0.6",
+    "commando-provider-mongo": "^1.1.1",
+    "discord.js": "^12.3.1",
+    "discord.js-commando": "git+https://github.com/discordjs/commando.git",
+    "module-alias": "^2.2.2",
+    "mongoose": "^5.10.11"
+  },
+  "_moduleAliases": {
+    "@root": ".",
+    "@schemas": "./schemas",
+    "@util": "./util",
+    "@images": "./images",
+    "@features": "./features/features",   
+    "@cmds": "./cmds",   
+    "@events": "./events",
+    "@rules_regs": "./rules regs"
   }
 }
