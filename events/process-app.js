@@ -52,7 +52,7 @@ async function run (client, message) {
     // CHANNEL WORK
 
     // Checks to make sure internal category is set properly
-    let internal_category = guild.channels.cache.get(config.internal.category)
+    let internal_category = guild.channels.cache.get(process.env.INTERNAL_CATEGORY_ID || config.internal.category)
     if(!internal_category || !internal_category.type === 'category') {
         fs.appendFileSync('./logs/errorlog.txt', 'Internal category is not a valid category.')
         console.error('Internal category is not a valid category.')
@@ -60,7 +60,7 @@ async function run (client, message) {
     }
 
     // Checks to make sure open category is set properly
-    const open_category = guild.channels.cache.get(config.open.category)
+    const open_category = guild.channels.cache.get(process.env.OPEN_CATEGORY_ID || config.open.category)
     /*
     if(!open_category || !open_category.type === 'category') {
         fs.appendFileSync('./errorlog.txt', 'Open category is not a valid category.');

@@ -7,25 +7,25 @@ const config = require('@root/config.js')
 const loadFeatures = require('@root/features/load-features')
 
 const client = new Commando.CommandoClient({
-    owner: config.ownerID,    
+    owner: process.env.OWNER_ID || config.ownerID,
     commandPrefix: config.prefix
 })
 
 
-client.on('ready', async () => {    
+client.on('ready', async () => {
 
     client.registry
-        .registerGroups([            
-            ['moderation', 'Moderation commands'],     
+        .registerGroups([
+            ['moderation', 'Moderation commands'],
             ['applications', 'Application Commands'],
         ])
         .registerDefaults()
         .registerCommandsIn(path.join(__dirname, 'cmds'))
-            
+
     loadFeatures(client)
 
-    console.log('The client is ready!')    
+    console.log('The client is ready!')
 })
 
 module.exports.client = client
-client.login(config.token)
+client.login(process.env.TOKEN || config.token)
