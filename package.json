@@ -24,8 +24,8 @@
     "@schemas": "./schemas",
     "@util": "./util",
     "@images": "./images",
-    "@features": "./features/features",   
-    "@cmds": "./cmds",   
+    "@features": "./features/features",
+    "@cmds": "./cmds",
     "@events": "./events",
     "@rules_regs": "./rules regs"
   }
