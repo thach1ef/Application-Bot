@@ -1,6 +1,15 @@
 const config = {
+    // Bot Owner, level 10 by default. A User ID. Should never be anything else than the bot owner's ID.
+    //"ownerID": "NNNNNNNNNNNNNNNNNN",
+
+    // Bot Token
+    //"token": "ODAxMTk5MTY0MTM3NDA2NTI0.YAdM3g.idbkvgENcE5VBrdbEGqeYrZJv3w",
     // Prefix for bot commands
     "prefix": "&",
+
+    // Application Channel Settings
+    //"listener": "NNNNNNNNNNNNNNNNNN",
+    //"webhook_id": "NNNNNNNNNNNNNNNNNN",
 
     // Google Form Settings
     "discord_tag": "Discord Username",
@@ -9,6 +18,7 @@ const config = {
 
     // Internal Category/Channel Settings
     "internal" : {
+        //"category": "NNNNNNNNNNNNNNNNNN",
         "channel_prefix": "Internal-",
         // base ranks to give internal persmissions to
         "ranks": ["Discord Admin"],
@@ -19,6 +29,7 @@ const config = {
     // Open/Applicant Category/Channel Settings
     "open" : {
         "channel": "TRUE",
+        //"category": "NNNNNNNNNNNNNNNNNN",
         "channel_prefix": "Open-",
         // base ranks to give internal persmissions to
         "ranks": ["Discord Admin"],
