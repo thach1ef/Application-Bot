@@ -3,6 +3,8 @@ require('module-alias/register')
 const path = require('path')
 const Commando = require('discord.js-commando')
 
+const fs = require('fs-extra')
+
 const config = require('@root/config.js')
 const loadFeatures = require('@root/features/load-features')
 
@@ -13,6 +15,12 @@ const client = new Commando.CommandoClient({
 
 
 client.on('ready', async () => {
+
+    var log = './logs/log.txt';
+    var errorlog = './logs/errorlog.txt'
+
+    fs.ensureFileSync(log)
+    fs.ensureFileSync(errorlog)
 
     client.registry
         .registerGroups([
