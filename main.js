@@ -8,6 +8,14 @@ const fs = require('fs-extra')
 const config = require('@root/config.js')
 const loadFeatures = require('@root/features/load-features')
 
+// Set up logging files
+var log = './logs/log.txt';
+var errorlog = './logs/errorlog.txt'
+
+fs.ensureFileSync(log)
+fs.ensureFileSync(errorlog)
+
+//Create Discord Client
 const client = new Commando.CommandoClient({
     owner: process.env.OWNER_ID || config.ownerID,
     commandPrefix: config.prefix
@@ -15,12 +23,6 @@ const client = new Commando.CommandoClient({
 
 
 client.on('ready', async () => {
-
-    var log = './logs/log.txt';
-    var errorlog = './logs/errorlog.txt'
-
-    fs.ensureFileSync(log)
-    fs.ensureFileSync(errorlog)
 
     client.registry
         .registerGroups([
