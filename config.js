@@ -21,7 +21,7 @@ const config = {
         //"category": "NNNNNNNNNNNNNNNNNN",
         "channel_prefix": "Internal-",
         // base ranks to give internal persmissions to
-        "ranks": ["Discord Admin"],
+        "ranks": ["Discord Admin", "Officer", "Gilthridge"],
         // gives bots higher permissions than the above
         "bots": ["BOTS"]
     },
@@ -32,7 +32,7 @@ const config = {
         //"category": "NNNNNNNNNNNNNNNNNN",
         "channel_prefix": "Open-",
         // base ranks to give internal persmissions to
-        "ranks": ["Discord Admin"],
+        "ranks": ["Discord Admin", "Officer", "Gilthridge"],
         // gives bots higher permissions than the above
         "bots": ["BOTS"]
     },
