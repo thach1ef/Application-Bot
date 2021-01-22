@@ -3,7 +3,7 @@ const config = {
     //"ownerID": "NNNNNNNNNNNNNNNNNN",
 
     // Bot Token
-    //"token": "ODAxMTk5MTY0MTM3NDA2NTI0.YAdM3g.idbkvgENcE5VBrdbEGqeYrZJv3w",
+    //"token": "YOUR TOKEN HERE",
     // Prefix for bot commands
     "prefix": "&",
 
